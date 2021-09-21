@@ -1,0 +1,22 @@
+@import "./variables.scss";
+
+.root {
+  list-style: none;
+  padding-left: 0;
+  padding-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  margin: 0;
+  &_dark {
+    color: $white;
+  }
+}
+
+.root_loading {
+  margin: auto;
+  & .icon {
+    color: $dark-gray;
+  }
+}

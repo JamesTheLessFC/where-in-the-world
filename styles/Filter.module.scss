@@ -1,0 +1,65 @@
+@import "./variables.scss";
+
+.root {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 1px 3px 3px $shadow-black;
+  width: 12rem;
+  padding: 1rem;
+  border-radius: 5px;
+  position: relative;
+  margin-bottom: 1rem;
+  background-color: $white;
+  & span {
+    font-size: 0.85rem;
+  }
+  & button {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    cursor: pointer;
+    color: inherit;
+  }
+  &_dark {
+    background-color: $dark-blue;
+    color: $white;
+    & .list li button:hover {
+      background-color: $very-dark-blue;
+    }
+  }
+}
+
+.list {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  padding: 0;
+  list-style: none;
+  box-shadow: 1px 3px 3px $shadow-black;
+  border-radius: 5px;
+  margin: 0;
+  background-color: inherit;
+  z-index: 10;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 500ms ease;
+  &_visible {
+    max-height: 9rem;
+  }
+  & li button {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    padding: 0.25rem 1rem;
+    font-family: "Nunito Sans", sans-serif;
+    cursor: pointer;
+    &:hover {
+      background-color: $lighter-gray;
+    }
+  }
+}

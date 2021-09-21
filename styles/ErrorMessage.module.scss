@@ -1,0 +1,14 @@
+@import "./variables.scss";
+
+.root {
+  height: 100%;
+  margin: auto;
+  text-align: center;
+  &_dark {
+    color: $white;
+  }
+}
+
+.icon {
+  color: red;
+}

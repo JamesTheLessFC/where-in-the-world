@@ -1,0 +1,25 @@
+@import "../styles/variables.scss";
+
+.container {
+  min-height: calc(100vh - 4rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: $very-light-gray;
+  padding-top: 2rem;
+  position: relative;
+  top: 4rem;
+  min-width: 320px;
+  &_dark {
+    background-color: $very-dark-blue;
+  }
+}
+
+.search_filter_container {
+  width: 100%;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}

@@ -1,0 +1,49 @@
+@import "./variables.scss";
+
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 288px;
+  position: relative;
+  margin: 1rem;
+  box-shadow: 1px 3px 3px $shadow-black;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: $white;
+  color: $most-dark-blue;
+  &:hover {
+    background-color: $lighter-gray;
+  }
+  &_dark {
+    background-color: $dark-blue;
+    color: $white;
+    &:hover {
+      background-color: $darker-blue;
+    }
+  }
+}
+
+.flagContainer {
+  min-height: 177px;
+  max-width: 100%;
+  position: relative;
+}
+
+.textContainer {
+  padding: 2rem;
+  flex-grow: 1;
+  & h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+  }
+  & p {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    font-size: 0.85rem;
+  }
+  & p span {
+    font-weight: 600;
+  }
+}

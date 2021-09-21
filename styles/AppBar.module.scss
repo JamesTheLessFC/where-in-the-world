@@ -1,0 +1,54 @@
+@import "./variables.scss";
+
+.root {
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 4rem;
+  box-shadow: 0px 5px 5px $shadow-black;
+  padding: 0 2rem;
+  min-width: 320px;
+  background-color: $white;
+  color: $most-dark-blue;
+  z-index: 10;
+  &_dark {
+    background-color: $dark-blue;
+  }
+  & h1 {
+    font-size: 0.85rem;
+  }
+  &_dark h1 {
+    color: $white;
+  }
+  & button {
+    font-size: 0.85rem;
+    font-family: "Nunito Sans", sans-serif;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    color: inherit;
+  }
+  &_dark button {
+    color: $white;
+  }
+}
+
+.icon {
+  margin-right: 0.5rem;
+  font-size: inherit;
+}
+
+@media only screen and (min-width: 576px) {
+  .root {
+    & h1 {
+      font-size: 1.2rem;
+    }
+  }
+}

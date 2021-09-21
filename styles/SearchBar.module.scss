@@ -1,0 +1,45 @@
+@import "./variables.scss";
+
+.root {
+  width: 100%;
+  position: relative;
+  margin-bottom: 1rem;
+  background-color: $white;
+  color: $dark-gray;
+  &_dark {
+    background-color: $dark-blue;
+    color: $white;
+  }
+}
+
+.input {
+  font-size: 0.85rem;
+  width: 100%;
+  padding: 1rem;
+  padding-left: 4rem;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 1px 3px 3px $shadow-black;
+  background-color: inherit;
+  outline: none;
+  color: inherit;
+  font-family: "Nunito Sans", sans-serif;
+  &_empty {
+    color: $light-gray;
+  }
+}
+
+.icon {
+  color: inherit;
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1rem;
+}
+
+@media only screen and (min-width: 576px) {
+  .root {
+    width: 20rem;
+  }
+}
