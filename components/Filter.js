@@ -39,23 +39,6 @@ export default function Filter({ regions, toggleRegion, darkModeOn }) {
           className={styles.icon}
         />
       </button>
-      {/* {showDropdown && (
-        <ul className={styles.list}>
-          {Object.keys(regions).map((region) => (
-            <li key={region}>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleRegion(region);
-                }}
-              >
-                <span>{region}</span>
-                {regions[region] && <FontAwesomeIcon icon={faCheck} />}
-              </button>
-            </li>
-          ))}
-        </ul>
-      )} */}
       <ul
         className={`${styles.list} ${showDropdown ? styles.list_visible : ""}`}
       >
