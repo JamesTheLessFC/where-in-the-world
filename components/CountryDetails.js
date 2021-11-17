@@ -71,17 +71,18 @@ export default function CountryDetails({ data, borders, darkModeOn }) {
           </div>
           <h3>
             <span>Border Countries:</span>
-            {data.borders.length === 0 ? " None" : ""}
+            {!data.borders ? " None" : ""}
           </h3>
           <div className={styles.borders_container}>
-            {data.borders.map((border) => (
-              <button
-                key={border}
-                onClick={() => router.push(`/country/${border}`)}
-              >
-                {borders[border]}
-              </button>
-            ))}
+            {data.borders &&
+              data.borders.map((border) => (
+                <button
+                  key={border}
+                  onClick={() => router.push(`/country/${border}`)}
+                >
+                  {borders[border]}
+                </button>
+              ))}
           </div>
         </div>
       </div>

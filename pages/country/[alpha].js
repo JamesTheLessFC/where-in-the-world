@@ -15,12 +15,14 @@ export async function getStaticProps({ params }) {
     data = await (
       await axios.get(`https://restcountries.com/v3.1/alpha/${alpha}`)
     ).data[0];
-    const codes = data.borders.join();
-    await (
-      await axios.get(`https://restcountries.com/v3.1/alpha?codes=${codes}`)
-    ).data.forEach((country) => {
-      borders[country.cca3] = country.name.common;
-    });
+    const codes = data.borders ? data.borders.join() : null;
+    if (codes) {
+      await (
+        await axios.get(`https://restcountries.com/v3.1/alpha?codes=${codes}`)
+      ).data.forEach((country) => {
+        borders[country.cca3] = country.name.common;
+      });
+    }
     error = false;
   } catch (err) {
     console.error(err);
