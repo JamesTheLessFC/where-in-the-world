@@ -49,13 +49,15 @@ export default function CountryDetails({ data, borders, darkModeOn }) {
               </p>
               <p>
                 <span>Currencies:</span>{" "}
-                {Object.values(data.currencies).map(
-                  (currency, index) =>
-                    currency.name +
-                    (index + 1 === Object.values(data.currencies).length
-                      ? ""
-                      : ", ")
-                )}
+                {data.currencies
+                  ? Object.values(data.currencies).map(
+                      (currency, index) =>
+                        currency.name +
+                        (index + 1 === Object.values(data.currencies).length
+                          ? ""
+                          : ", ")
+                    )
+                  : "None"}
               </p>
               <p>
                 <span>Languages:</span>{" "}
