@@ -29,7 +29,7 @@ export default function Countries({
       ) : (
         Object.entries(filteredResults).map((country) => (
           <Country
-            key={country[1].alpha3Code}
+            key={country[1].cca3}
             countryData={country[1]}
             darkModeOn={darkModeOn}
             setSelectedCountry={setSelectedCountry}

@@ -7,7 +7,7 @@ export default function Country({
   setSelectedCountry,
 }) {
   const selectCountry = () => {
-    setSelectedCountry(countryData.alpha3Code);
+    setSelectedCountry(countryData.cca3);
   };
 
   return (
@@ -18,15 +18,15 @@ export default function Country({
       <div className={styles.flagContainer}>
         <Image
           className={styles.flag}
-          src={countryData.flag}
-          alt={`${countryData.name} flag`}
+          src={countryData.flags.svg}
+          alt={`${countryData.name.common} flag`}
           layout="fill"
           objectFit="cover"
           objectPosition="left"
         />
       </div>
       <div className={styles.textContainer}>
-        <h2>{countryData.name}</h2>
+        <h2>{countryData.name.common}</h2>
         <p>
           <span>Population:</span> {countryData.population.toLocaleString()}
         </p>

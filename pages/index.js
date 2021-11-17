@@ -57,7 +57,7 @@ export default function Home() {
         }
       })
       .forEach((entry) => {
-        results[entry[1].alpha3Code] = entry[1];
+        results[entry[1].cca3] = entry[1];
       });
     setFilteredResults(results);
   }, [searchTerm, data, regions]);
@@ -65,10 +65,10 @@ export default function Home() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("https://restcountries.eu/rest/v2/all");
+      const response = await axios.get("https://restcountries.com/v3.1/all");
       const dataObject = {};
       response.data.forEach((country) => {
-        dataObject[country.alpha3Code] = country;
+        dataObject[country.cca3] = country;
       });
       setData(dataObject);
       setLoading(false);

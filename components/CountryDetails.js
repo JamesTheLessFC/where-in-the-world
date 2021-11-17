@@ -24,7 +24,7 @@ export default function CountryDetails({
       <div className={styles.content}>
         <div className={styles.flag_container}>
           <Image
-            src={countryData.flag}
+            src={countryData.flags.svg}
             alt={`${countryData.name} flag`}
             layout="fill"
             objectFit="contain"
@@ -32,11 +32,12 @@ export default function CountryDetails({
           />
         </div>
         <div className={styles.text_container}>
-          <h2>{countryData.name}</h2>
+          <h2>{countryData.name.common}</h2>
           <div className={styles.details_container}>
             <div className={styles.details_group1_container}>
               <p>
-                <span>Native Name:</span> {countryData.nativeName}
+                <span>Native Name:</span>{" "}
+                {Object.values(countryData.name.nativeName)[0].common}
               </p>
               <p>
                 <span>Population:</span>{" "}
@@ -54,22 +55,26 @@ export default function CountryDetails({
             </div>
             <div className={styles.details_group2_container}>
               <p>
-                <span>Top Level Domain:</span> {countryData.topLevelDomain}
+                <span>Top Level Domain:</span> {countryData.tld}
               </p>
               <p>
                 <span>Currencies:</span>{" "}
-                {countryData.currencies.map(
+                {Object.values(countryData.currencies).map(
                   (currency, index) =>
                     currency.name +
-                    (index + 1 === countryData.currencies.length ? "" : ", ")
+                    (index + 1 === Object.values(countryData.currencies).length
+                      ? ""
+                      : ", ")
                 )}
               </p>
               <p>
                 <span>Languages:</span>{" "}
-                {countryData.languages.map(
+                {Object.values(countryData.languages).map(
                   (language, index) =>
-                    language.name +
-                    (index + 1 === countryData.languages.length ? "" : ", ")
+                    language +
+                    (index + 1 === Object.values(countryData.languages).length
+                      ? ""
+                      : ", ")
                 )}
               </p>
             </div>
@@ -81,7 +86,7 @@ export default function CountryDetails({
           <div className={styles.borders_container}>
             {countryData.borders.map((border) => (
               <button key={border} onClick={() => setSelectedCountry(border)}>
-                {data[border].name}
+                {data[border].name.common}
               </button>
             ))}
           </div>
