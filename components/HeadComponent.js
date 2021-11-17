@@ -1,9 +1,9 @@
 import Head from "next/head";
 
-export default function HeadComponent() {
+export default function HeadComponent({ title }) {
   return (
     <Head>
-      <title>Where in the world?</title>
+      <title>{title}</title>
       <meta
         name="description"
         content="A web app that queries information about every country from the REST Country API"

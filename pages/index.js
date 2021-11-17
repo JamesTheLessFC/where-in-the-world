@@ -6,10 +6,23 @@ import { useState, useEffect } from "react";
 import Filter from "../components/Filter";
 import Countries from "../components/Countries";
 import axios from "axios";
-import CountryDetails from "../components/CountryDetails";
 import ErrorMessage from "../components/ErrorMessage";
 
-export default function Home() {
+export async function getStaticProps(context) {
+  let error;
+  let data;
+  try {
+    data = await (await axios.get("https://restcountries.com/v3.1/all")).data;
+    error = false;
+  } catch (err) {
+    console.error(err);
+    error = true;
+    data = null;
+  }
+  return { props: { data, error } };
+}
+
+export default function Home({ data, error }) {
   const [darkModeOn, setDarkModeOn] = useState(false);
   const [searchTerm, setSearchTerm] = useState("Search for a country...");
   const [regions, setRegions] = useState({
@@ -19,18 +32,9 @@ export default function Home() {
     Europe: false,
     Oceania: false,
   });
-  const [data, setData] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [filteredResults, setFilteredResults] = useState({});
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [filteredResults, setFilteredResults] = useState(null);
 
   useEffect(() => {
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    let results = {};
     const search = searchTerm.trim();
     const filters = Object.entries(regions).every((entry) => {
       return !entry[1];
@@ -39,45 +43,30 @@ export default function Home() {
       : Object.keys(regions).filter((region) => {
           return regions[region];
         });
-    Object.entries(data)
-      .filter((entry) => {
+    const results = data
+      .filter((country) => {
         if (filters.length !== 5) {
-          return filters.includes(entry[1].region);
+          return filters.includes(country.region);
         } else {
           return true;
         }
       })
-      .filter((entry) => {
+      .filter((country) => {
         if (search !== "" && search !== "Search for a country...") {
-          return entry[1].name
-            .toLowerCase()
-            .includes(searchTerm.trim().toLowerCase());
+          return (
+            country.name.common
+              .toLowerCase()
+              .includes(searchTerm.trim().toLowerCase()) ||
+            country.name.official
+              .toLowerCase()
+              .includes(searchTerm.trim().toLowerCase())
+          );
         } else {
           return true;
         }
-      })
-      .forEach((entry) => {
-        results[entry[1].cca3] = entry[1];
       });
     setFilteredResults(results);
   }, [searchTerm, data, regions]);
-
-  const fetchData = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get("https://restcountries.com/v3.1/all");
-      const dataObject = {};
-      response.data.forEach((country) => {
-        dataObject[country.cca3] = country;
-      });
-      setData(dataObject);
-      setLoading(false);
-    } catch (err) {
-      console.error(err);
-      setError(true);
-      setLoading(false);
-    }
-  };
 
   const toggleDarkMode = () => {
     setDarkModeOn((prevState) => {
@@ -100,38 +89,24 @@ export default function Home() {
         darkModeOn ? styles.container_dark : ""
       }`}
     >
-      <HeadComponent />
+      <HeadComponent title="Where In the World?" />
       <AppBar darkModeOn={darkModeOn} toggleDarkMode={toggleDarkMode} />
-      {!selectedCountry && (
-        <div className={styles.search_filter_container}>
-          <SearchBar
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            darkModeOn={darkModeOn}
-          />
-          <Filter
-            regions={regions}
-            toggleRegion={toggleRegion}
-            darkModeOn={darkModeOn}
-          />
-        </div>
-      )}
+      <div className={styles.search_filter_container}>
+        <SearchBar
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          darkModeOn={darkModeOn}
+        />
+        <Filter
+          regions={regions}
+          toggleRegion={toggleRegion}
+          darkModeOn={darkModeOn}
+        />
+      </div>
       {error ? (
         <ErrorMessage darkModeOn={darkModeOn} />
-      ) : selectedCountry ? (
-        <CountryDetails
-          data={data}
-          setSelectedCountry={setSelectedCountry}
-          selectedCountry={selectedCountry}
-          darkModeOn={darkModeOn}
-        />
       ) : (
-        <Countries
-          filteredResults={filteredResults}
-          darkModeOn={darkModeOn}
-          setSelectedCountry={setSelectedCountry}
-          loading={loading}
-        />
+        <Countries data={filteredResults} darkModeOn={darkModeOn} />
       )}
     </div>
   );

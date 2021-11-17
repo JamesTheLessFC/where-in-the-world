@@ -3,13 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "../styles/Countries.module.scss";
 import Country from "./Country";
 
-export default function Countries({
-  filteredResults,
-  darkModeOn,
-  setSelectedCountry,
-  loading,
-}) {
-  if (loading) {
+export default function Countries({ darkModeOn, setSelectedCountry, data }) {
+  if (!data) {
     return (
       <div className={styles.root_loading}>
         <FontAwesomeIcon
@@ -22,15 +17,15 @@ export default function Countries({
   }
   return (
     <ul className={`${styles.root} ${darkModeOn ? styles.root_dark : ""}`}>
-      {Object.keys(filteredResults).length === 0 ? (
+      {data.length === 0 ? (
         <li>
           <p>No results found.</p>
         </li>
       ) : (
-        Object.entries(filteredResults).map((country) => (
+        data.map((country) => (
           <Country
-            key={country[1].cca3}
-            countryData={country[1]}
+            key={country.cca3}
+            countryData={country}
             darkModeOn={darkModeOn}
             setSelectedCountry={setSelectedCountry}
           />

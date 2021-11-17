@@ -1,13 +1,11 @@
 import styles from "../styles/Country.module.scss";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
-export default function Country({
-  countryData,
-  darkModeOn,
-  setSelectedCountry,
-}) {
+export default function Country({ countryData, darkModeOn }) {
+  const router = useRouter();
   const selectCountry = () => {
-    setSelectedCountry(countryData.cca3);
+    router.push(`/country/${countryData.cca3}`);
   };
 
   return (

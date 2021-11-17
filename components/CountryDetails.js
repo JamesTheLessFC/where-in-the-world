@@ -2,77 +2,67 @@ import styles from "../styles/CountryDetails.module.scss";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
 
-export default function CountryDetails({
-  data,
-  selectedCountry,
-  darkModeOn,
-  setSelectedCountry,
-}) {
-  const deselectCountry = () => {
-    setSelectedCountry("");
-  };
-
-  const countryData = data[selectedCountry];
-
+export default function CountryDetails({ data, borders, darkModeOn }) {
+  const router = useRouter();
   return (
     <div className={`${styles.root} ${darkModeOn ? styles.root_dark : ""}`}>
-      <button onClick={deselectCountry}>
+      <button onClick={() => router.back()}>
         <FontAwesomeIcon icon={faArrowLeft} className={styles.icon} />
         Back
       </button>
       <div className={styles.content}>
         <div className={styles.flag_container}>
           <Image
-            src={countryData.flags.svg}
-            alt={`${countryData.name} flag`}
+            src={data.flags.svg}
+            alt={`${data.name} flag`}
             layout="fill"
             objectFit="contain"
             objectPosition="left top"
           />
         </div>
         <div className={styles.text_container}>
-          <h2>{countryData.name.common}</h2>
+          <h2>{data.name.common}</h2>
           <div className={styles.details_container}>
             <div className={styles.details_group1_container}>
               <p>
                 <span>Native Name:</span>{" "}
-                {Object.values(countryData.name.nativeName)[0].common}
+                {Object.values(data.name.nativeName)[0].common}
               </p>
               <p>
-                <span>Population:</span>{" "}
-                {countryData.population.toLocaleString()}
+                <span>Population:</span> {data.population.toLocaleString()}
               </p>
               <p>
-                <span>Region:</span> {countryData.region}
+                <span>Region:</span> {data.region}
               </p>
               <p>
-                <span>Sub Region:</span> {countryData.subregion}
+                <span>Sub Region:</span> {data.subregion}
               </p>
               <p>
-                <span>Capital:</span> {countryData.capital}
+                <span>Capital:</span> {data.capital}
               </p>
             </div>
             <div className={styles.details_group2_container}>
               <p>
-                <span>Top Level Domain:</span> {countryData.tld}
+                <span>Top Level Domain:</span> {data.tld}
               </p>
               <p>
                 <span>Currencies:</span>{" "}
-                {Object.values(countryData.currencies).map(
+                {Object.values(data.currencies).map(
                   (currency, index) =>
                     currency.name +
-                    (index + 1 === Object.values(countryData.currencies).length
+                    (index + 1 === Object.values(data.currencies).length
                       ? ""
                       : ", ")
                 )}
               </p>
               <p>
                 <span>Languages:</span>{" "}
-                {Object.values(countryData.languages).map(
+                {Object.values(data.languages).map(
                   (language, index) =>
                     language +
-                    (index + 1 === Object.values(countryData.languages).length
+                    (index + 1 === Object.values(data.languages).length
                       ? ""
                       : ", ")
                 )}
@@ -81,12 +71,15 @@ export default function CountryDetails({
           </div>
           <h3>
             <span>Border Countries:</span>
-            {countryData.borders.length === 0 ? " None" : ""}
+            {data.borders.length === 0 ? " None" : ""}
           </h3>
           <div className={styles.borders_container}>
-            {countryData.borders.map((border) => (
-              <button key={border} onClick={() => setSelectedCountry(border)}>
-                {data[border].name.common}
+            {data.borders.map((border) => (
+              <button
+                key={border}
+                onClick={() => router.push(`/country/${border}`)}
+              >
+                {borders[border]}
               </button>
             ))}
           </div>
