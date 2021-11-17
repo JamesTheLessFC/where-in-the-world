@@ -28,7 +28,9 @@ export default function CountryDetails({ data, borders, darkModeOn }) {
             <div className={styles.details_group1_container}>
               <p>
                 <span>Native Name:</span>{" "}
-                {Object.values(data.name.nativeName)[0].common}
+                {data.name.nativeName
+                  ? Object.values(data.name.nativeName)[0].common
+                  : "N/A"}
               </p>
               <p>
                 <span>Population:</span> {data.population.toLocaleString()}
@@ -37,10 +39,11 @@ export default function CountryDetails({ data, borders, darkModeOn }) {
                 <span>Region:</span> {data.region}
               </p>
               <p>
-                <span>Sub Region:</span> {data.subregion}
+                <span>Sub Region:</span>{" "}
+                {data.subregion ? data.subregion : "N/A"}
               </p>
               <p>
-                <span>Capital:</span> {data.capital}
+                <span>Capital:</span> {data.capital ? data.capital : "N/A"}
               </p>
             </div>
             <div className={styles.details_group2_container}>
@@ -57,17 +60,19 @@ export default function CountryDetails({ data, borders, darkModeOn }) {
                           ? ""
                           : ", ")
                     )
-                  : "None"}
+                  : "N/A"}
               </p>
               <p>
                 <span>Languages:</span>{" "}
-                {Object.values(data.languages).map(
-                  (language, index) =>
-                    language +
-                    (index + 1 === Object.values(data.languages).length
-                      ? ""
-                      : ", ")
-                )}
+                {data.languages
+                  ? Object.values(data.languages).map(
+                      (language, index) =>
+                        language +
+                        (index + 1 === Object.values(data.languages).length
+                          ? ""
+                          : ", ")
+                    )
+                  : "N/A"}
               </p>
             </div>
           </div>
